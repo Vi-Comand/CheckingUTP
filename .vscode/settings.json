@@ -1,0 +1,7 @@
+{
+    "editor.renderWhitespace": "all",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "editor.fontWeight": "normal"
+}
