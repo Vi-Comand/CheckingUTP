@@ -113,6 +113,7 @@ namespace CheckingUTP.Controllers
                             var Table = InfoTable(worksheet, colRow);
                             listTable.Add(Table);
                         }
+                        existingFile.Delete();
                     }
                 }
             }
