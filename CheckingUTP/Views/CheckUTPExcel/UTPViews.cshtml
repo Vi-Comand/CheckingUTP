@@ -46,6 +46,7 @@
     </div>
 
     <input type="hidden" class="form-control input100" id="var" asp-for=@Model.table />
+    
     <input type="submit" class="form-control input100" asp-action="SaveUTPOnline" asp-controller="CheckUTPExcel" />
 
     <div class="row">
@@ -63,22 +64,22 @@
                             Вид нагрузки
                         </td>
                         <td class="mw-50">
-                            <p class="vert"> Часы</p>
+                            <p class="vert">Кол_часов</p>
                         </td>
                         <td class="mw-50">
-                            <p class="vert">Гуппы</p>
+                            <p class="vert">Кол_гупп</p>
                         </td>
                         <td class="mw-50">
-                            <p class="vert">Под_группы</p>
+                            <p class="vert">Кол_подгрупп</p>
                         </td>
                         <td class="mw-50">
                             <p class="vert">Фор.контр.</p>
                         </td>
                         <td class="mw-50">
-                            <p class="vert">Слушатели</p>
+                            <p class="vert">Кол_слушателей</p>
                         </td>
                         <td class="mw-50">
-                            <p class="vert"> Всего_часов</p>
+                            <p class="vert">Объем_учеб._нагруз.</p>
                         </td>
                         <td class="mw-100">
 
@@ -93,9 +94,10 @@
 
             @foreach (TableModel table in Model.table)
             {
-
+                <input type="hidden" class="form-control input100" id="q" asp-for=@table.Row.Count />
                 @for (int i = 0; i < table.Row.Count; i++)
                 {
+
                     if (table.Row[@i].Type == 0)
                     {
 
@@ -148,15 +150,7 @@
             }
         </div>
 
-
-
         <div class="col-6">
-
-
-
-
-
-
 
             <div class="area col-12 shadow-lg border text-center" id="ar1">
                 <h4>Дистанционная нагрузка</h4>
@@ -170,22 +164,22 @@
                                 Вид нагрузки
                             </td>
                             <td class="mw-50">
-                                <p class="vert"> Часы</p>
+                                <p class="vert">Кол_часов</p>
                             </td>
                             <td class="mw-50">
-                                <p class="vert">Гуппы</p>
+                                <p class="vert">Кол_гупп</p>
                             </td>
                             <td class="mw-50">
-                                <p class="vert">Под_группы</p>
+                                <p class="vert">Кол_подгрупп</p>
                             </td>
                             <td class="mw-50">
                                 <p class="vert">Фор.контр.</p>
                             </td>
                             <td class="mw-50">
-                                <p class="vert">Слушатели</p>
+                                <p class="vert">Кол_слушателей</p>
                             </td>
                             <td class="mw-50">
-                                <p class="vert"> Всего_часов</p>
+                                <p class="vert">Объем_учеб._нагруз.</p>
                             </td>
                             <td class="mw-100">
 
@@ -267,22 +261,22 @@
                                 Вид нагрузки
                             </td>
                             <td class="mw-50">
-                                <p class="vert"> Часы</p>
+                                <p class="vert">Кол_часов</p>
                             </td>
                             <td class="mw-50">
-                                <p class="vert">Гуппы</p>
+                                <p class="vert">Кол_гупп</p>
                             </td>
                             <td class="mw-50">
-                                <p class="vert">Под_группы</p>
+                                <p class="vert">Кол_подгрупп</p>
                             </td>
                             <td class="mw-50">
                                 <p class="vert">Фор.контр.</p>
                             </td>
                             <td class="mw-50">
-                                <p class="vert">Слушатели</p>
+                                <p class="vert">Кол_слушателей</p>
                             </td>
                             <td class="mw-50">
-                                <p class="vert"> Всего_часов</p>
+                                <p class="vert">Объем_учеб._нагруз.</p>
                             </td>
                             <td class="mw-100">
 
@@ -360,22 +354,22 @@
                                 Вид нагрузки
                             </td>
                             <td class="mw-50">
-                                <p class="vert"> Часы</p>
+                                <p class="vert">Кол_часов</p>
                             </td>
                             <td class="mw-50">
-                                <p class="vert">Гуппы</p>
+                                <p class="vert">Кол_гупп</p>
                             </td>
                             <td class="mw-50">
-                                <p class="vert">Под_группы</p>
+                                <p class="vert">Кол_подгрупп</p>
                             </td>
                             <td class="mw-50">
                                 <p class="vert">Фор.контр.</p>
                             </td>
                             <td class="mw-50">
-                                <p class="vert">Слушатели</p>
+                                <p class="vert">Кол_слушателей</p>
                             </td>
                             <td class="mw-50">
-                                <p class="vert"> Всего_часов</p>
+                                <p class="vert">Объем_учеб._нагруз.</p>
                             </td>
                             <td class="mw-100">
 
@@ -477,7 +471,7 @@
 
     .area {
         /* width: 600px;*/
-        height: 350px;
+        /*height: 350px;*/
         /*border: 10px solid plum;*/
         margin: 20px auto;
         padding: 10px;
@@ -498,8 +492,8 @@
     let area3 = document.querySelector("#ar3");
     let areaSt = document.querySelector("#ar0");
     var q;
-
-    for (i = 0; i < 12; i++) {
+    var count = document.querySelector("#q").value;
+    for (i = 0; i < count; i++) {
         let elem1 = document.querySelector("#el-" + i + "");
         elem1.addEventListener('dragstart', function () {
 
@@ -537,7 +531,6 @@
         this.appendChild(q);
     });
     area3.addEventListener("drop", function (event) {
-        alert(q.id);
         this.appendChild(q);
 
     });
