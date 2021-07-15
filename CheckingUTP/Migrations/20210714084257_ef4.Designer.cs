@@ -2,14 +2,16 @@
 using CheckingUTP.Models.DataBase;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CheckingUTP.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20210714084257_ef4")]
+    partial class ef4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,9 +63,6 @@ namespace CheckingUTP.Migrations
                         .HasColumnType("int");
 
                     b.Property<float>("Voulme_hours")
-                        .HasColumnType("float");
-
-                    b.Property<float>("Voulme_hours_per_listener")
                         .HasColumnType("float");
 
                     b.HasKey("Type_trainig_load_id");
