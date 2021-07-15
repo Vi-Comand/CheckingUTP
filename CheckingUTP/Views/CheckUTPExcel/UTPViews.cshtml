@@ -1,13 +1,50 @@
 @model CheckingUTP.Models.ModelsUTP.UTP
 @using CheckingUTP.Models.ModelsUTP
+
 <form method="post">
-    <input type="text" class="form-control input100" id="var" asp-for=@Model.propertyUTP.Utp_id />
-    <input type="text" class="form-control input100" id="var" asp-for=@Model.propertyUTP.Name />
-    <input type="text" class="form-control input100" id="var" asp-for=@Model.propertyUTP.Hour />
-    <input type="text" class="form-control input100" id="var" asp-for=@Model.propertyUTP.Kol_groups />
-    <input type="text" class="form-control input100" id="var" asp-for=@Model.propertyUTP.Kol_slushatel_v_group />
-    <input type="text" class="form-control input100" id="var" asp-for=@Model.propertyUTP.Rejim_zanyati />
-    <input type="text" class="form-control input100" id="var" asp-for=@Model.propertyUTP.Forma_obuchen />
+    <div class="row mb-3">
+        <label for="var" class="col-sm-4 col-form-label">Номер УТП:</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control input100" id="var" asp-for=@Model.propertyUTP.Utp_id />
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="name" class="col-sm-4 col-form-label">Название УТП:</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control input100" id="name" asp-for=@Model.propertyUTP.Name />
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="Hour" class="col-sm-4 col-form-label">Всего часов:</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control input100" id="Hour" asp-for=@Model.propertyUTP.Hour />
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="Kol_groups" class="col-sm-4 col-form-label">Количество групп:</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control input100" id="Kol_groups" asp-for=@Model.propertyUTP.Kol_groups />
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="Kol_slushatel_v_group" class="col-sm-4 col-form-label">Количество слушателей в группе:</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control input100" id="Kol_slushatel_v_group" asp-for=@Model.propertyUTP.Kol_slushatel_v_group />
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="Rejim_zanyati" class="col-sm-4 col-form-label">Режим занятий:</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control input100" id="Rejim_zanyati" asp-for=@Model.propertyUTP.Rejim_zanyati />
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="Forma_obuchen" class="col-sm-4 col-form-label">Форма обучения:</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control input100" id="Forma_obuchen" asp-for=@Model.propertyUTP.Forma_obuchen />
+        </div>
+    </div>
+
     <input type="hidden" class="form-control input100" id="var" asp-for=@Model.table />
     <input type="submit" class="form-control input100" asp-action="SaveUTPOnline" asp-controller="CheckUTPExcel" />
 
@@ -15,6 +52,45 @@
 
         @{int a = 0;}
         <div class="area col-6 shadow-lg border text-center" id="ar0">
+
+            <div class="shadow" id="el-st" draggable="true">
+
+
+                <table class="table   table-sm table-bordered " style="table-layout: fixed">
+
+                    <tr style="    height: 130px;">
+                        <td class="col-12">
+                            Вид нагрузки
+                        </td>
+                        <td class="mw-50">
+                            <p class="vert"> Часы</p>
+                        </td>
+                        <td class="mw-50">
+                            <p class="vert">Гуппы</p>
+                        </td>
+                        <td class="mw-50">
+                            <p class="vert">Под_группы</p>
+                        </td>
+                        <td class="mw-50">
+                            <p class="vert">Фор.контр.</p>
+                        </td>
+                        <td class="mw-50">
+                            <p class="vert">Слушатели</p>
+                        </td>
+                        <td class="mw-50">
+                            <p class="vert"> Всего_часов</p>
+                        </td>
+                        <td class="mw-100">
+
+                            <p class="vert">Статус</p>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+
+
+
             @foreach (TableModel table in Model.table)
             {
 
@@ -34,30 +110,29 @@
                             <table class="table table-hover  table-sm table-bordered shadow" style="table-layout: fixed">
 
                                 <tr>
-                                    <td width="100">
-                                        <input type="text" onchange="SaveOnChange(@row.ID,1, this.value)" asp-for="@row.NameTypeTrainingLoad" value='@row.NameTypeTrainingLoad'>
+                                    <td class="">
+                                        <input class="col-12" type="text" onchange="SaveOnChange(@row.ID,1, this.value)" asp-for="@row.NameTypeTrainingLoad" value='@row.NameTypeTrainingLoad'>
                                     </td>
-                                    <td width="20">
-                                        <input type="text" onchange="SaveOnChange(@row.ID,2, this.value)" value='@row.NumberHours'>
+                                    <td class="mw-50">
+                                        <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,2, this.value)" value='@row.NumberHours'>
                                     </td>
-                                    <td width="20">
-                                        <input type="text" onchange="SaveOnChange(@row.ID,3, this.value)" value='@row.NumberGroups'>
+                                    <td class="mw-50">
+                                        <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,3, this.value)" value='@row.NumberGroups'>
                                     </td>
-                                    <td width="20">
-                                        <input type="text" onchange="SaveOnChange(@row.ID,4, this.value)" value='@row.NumberSubgroups'>
+                                    <td class="mw-50">
+                                        <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,4, this.value)" value='@row.NumberSubgroups'>
                                     </td>
-                                    <td width="20">
-                                        <input type="text" onchange="SaveOnChange(@row.ID,5, this.value)" value='@row.NumberControlForms'>
+                                    <td class="mw-50">
+                                        <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,5, this.value)" value='@row.NumberControlForms'>
                                     </td>
-                                    <td width="20">
-                                        <input type="text" onchange="SaveOnChange(@row.ID,6, this.value)" value='@row.NumberListeners'>
+                                    <td class="mw-50">
+                                        <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,6, this.value)" value='@row.NumberListeners'>
                                     </td>
-                                    <td width="20">
-                                        <input type="text" onchange="SaveOnChange(@row.ID,7, this.value)" value='@row.VolumeHours'>
+                                    <td class="mw-50">
+                                        <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,7, this.value)" value='@row.VolumeHours'>
                                     </td>
-                                    <td width="40">
-
-                                        @row.Status
+                                    <td class="mw-100">
+                                        <input type="text" class="mw-100" disabled value='@row.Status'>
                                     </td>
                                 </tr>
                             </table>
@@ -84,6 +159,45 @@
 
 
             <div class="area col-12 shadow-lg border text-center" id="ar1">
+                <h4>Дистанционная нагрузка</h4>
+                <div class="shadow" id="el-st" draggable="true">
+
+
+                    <table class="table   table-sm table-bordered " style="table-layout: fixed">
+
+                        <tr style="    height: 130px;">
+                            <td class="col-12">
+                                Вид нагрузки
+                            </td>
+                            <td class="mw-50">
+                                <p class="vert"> Часы</p>
+                            </td>
+                            <td class="mw-50">
+                                <p class="vert">Гуппы</p>
+                            </td>
+                            <td class="mw-50">
+                                <p class="vert">Под_группы</p>
+                            </td>
+                            <td class="mw-50">
+                                <p class="vert">Фор.контр.</p>
+                            </td>
+                            <td class="mw-50">
+                                <p class="vert">Слушатели</p>
+                            </td>
+                            <td class="mw-50">
+                                <p class="vert"> Всего_часов</p>
+                            </td>
+                            <td class="mw-100">
+
+                                <p class="vert">Статус</p>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+
+
+
                 @foreach (TableModel table in Model.table)
                 {
 
@@ -104,30 +218,29 @@
                                     <table class="table table-hover  table-sm table-bordered shadow" style="table-layout: fixed">
 
                                         <tr>
-                                            <td width="100">
-                                                <input type="text" onchange="SaveOnChange(@row.ID,1, this.value)" value='@row.NameTypeTrainingLoad'>
+                                            <td class="">
+                                                <input class="col-12" type="text" onchange="SaveOnChange(@row.ID,1, this.value)" asp-for="@row.NameTypeTrainingLoad" value='@row.NameTypeTrainingLoad'>
                                             </td>
-                                            <td width="20">
-                                                <input type="text" onchange="SaveOnChange(@row.ID,2, this.value)" value='@row.NumberHours'>
+                                            <td class="mw-50">
+                                                <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,2, this.value)" value='@row.NumberHours'>
                                             </td>
-                                            <td width="20">
-                                                <input type="text" onchange="SaveOnChange(@row.ID,3, this.value)" value='@row.NumberGroups'>
+                                            <td class="mw-50">
+                                                <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,3, this.value)" value='@row.NumberGroups'>
                                             </td>
-                                            <td width="20">
-                                                <input type="text" onchange="SaveOnChange(@row.ID,4, this.value)" value='@row.NumberSubgroups'>
+                                            <td class="mw-50">
+                                                <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,4, this.value)" value='@row.NumberSubgroups'>
                                             </td>
-                                            <td width="20">
-                                                <input type="text" onchange="SaveOnChange(@row.ID,5, this.value)" value='@row.NumberControlForms'>
+                                            <td class="mw-50">
+                                                <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,5, this.value)" value='@row.NumberControlForms'>
                                             </td>
-                                            <td width="20">
-                                                <input type="text" onchange="SaveOnChange(@row.ID,6, this.value)" value='@row.NumberListeners'>
+                                            <td class="mw-50">
+                                                <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,6, this.value)" value='@row.NumberListeners'>
                                             </td>
-                                            <td width="20">
-                                                <input type="text" onchange="SaveOnChange(@row.ID,7, this.value)" value='@row.VolumeHours'>
+                                            <td class="mw-50">
+                                                <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,7, this.value)" value='@row.VolumeHours'>
                                             </td>
-                                            <td width="40">
-
-                                                @row.Status
+                                            <td class="mw-100">
+                                                <input type="text" class="mw-100" disabled value='@row.Status'>
                                             </td>
                                         </tr>
                                     </table>
@@ -143,6 +256,42 @@
                 }
             </div>
             <div class="area col-12 shadow-lg border text-center" id="ar2">
+                <h4>Аудиторная нагрузка</h4>
+                <div class="shadow" id="el-st" draggable="true">
+
+
+                    <table class="table   table-sm table-bordered " style="table-layout: fixed">
+
+                        <tr style="    height: 130px;">
+                            <td class="col-12">
+                                Вид нагрузки
+                            </td>
+                            <td class="mw-50">
+                                <p class="vert"> Часы</p>
+                            </td>
+                            <td class="mw-50">
+                                <p class="vert">Гуппы</p>
+                            </td>
+                            <td class="mw-50">
+                                <p class="vert">Под_группы</p>
+                            </td>
+                            <td class="mw-50">
+                                <p class="vert">Фор.контр.</p>
+                            </td>
+                            <td class="mw-50">
+                                <p class="vert">Слушатели</p>
+                            </td>
+                            <td class="mw-50">
+                                <p class="vert"> Всего_часов</p>
+                            </td>
+                            <td class="mw-100">
+
+                                <p class="vert">Статус</p>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
                 @foreach (TableModel table in Model.table)
                 {
 
@@ -162,30 +311,29 @@
                                 <table class="table table-hover  table-sm table-bordered shadow" style="table-layout: fixed">
 
                                     <tr>
-                                        <td width="100">
-                                            <input type="text" onchange="SaveOnChange(@row.ID,1, this.value)" value='@row.NameTypeTrainingLoad'>
+                                        <td class="">
+                                            <input class="col-12" type="text" onchange="SaveOnChange(@row.ID,1, this.value)" asp-for="@row.NameTypeTrainingLoad" value='@row.NameTypeTrainingLoad'>
                                         </td>
-                                        <td width="20">
-                                            <input type="text" onchange="SaveOnChange(@row.ID,2, this.value)" value='@row.NumberHours'>
+                                        <td class="mw-50">
+                                            <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,2, this.value)" value='@row.NumberHours'>
                                         </td>
-                                        <td width="20">
-                                            <input type="text" onchange="SaveOnChange(@row.ID,3, this.value)" value='@row.NumberGroups'>
+                                        <td class="mw-50">
+                                            <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,3, this.value)" value='@row.NumberGroups'>
                                         </td>
-                                        <td width="20">
-                                            <input type="text" onchange="SaveOnChange(@row.ID,4, this.value)" value='@row.NumberSubgroups'>
+                                        <td class="mw-50">
+                                            <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,4, this.value)" value='@row.NumberSubgroups'>
                                         </td>
-                                        <td width="20">
-                                            <input type="text" onchange="SaveOnChange(@row.ID,5, this.value)" value='@row.NumberControlForms'>
+                                        <td class="mw-50">
+                                            <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,5, this.value)" value='@row.NumberControlForms'>
                                         </td>
-                                        <td width="20">
-                                            <input type="text" onchange="SaveOnChange(@row.ID,6, this.value)" value='@row.NumberListeners'>
+                                        <td class="mw-50">
+                                            <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,6, this.value)" value='@row.NumberListeners'>
                                         </td>
-                                        <td width="20">
-                                            <input type="text" onchange="SaveOnChange(@row.ID,7, this.value)" value='@row.VolumeHours'>
+                                        <td class="mw-50">
+                                            <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,7, this.value)" value='@row.VolumeHours'>
                                         </td>
-                                        <td width="40">
-
-                                            @row.Status
+                                        <td class="mw-100">
+                                            <input type="text" class="mw-100" disabled value='@row.Status'>
                                         </td>
                                     </tr>
                                 </table>
@@ -201,6 +349,42 @@
 
             </div>
             <div class="area col-12 shadow-lg border text-center" id="ar3">
+                <h4>Внеаудиторная нагрузка</h4>
+                <div class="shadow" id="el-st" draggable="true">
+
+
+                    <table class="table   table-sm table-bordered " style="table-layout: fixed">
+
+                        <tr style="    height: 130px;">
+                            <td class="col-12">
+                                Вид нагрузки
+                            </td>
+                            <td class="mw-50">
+                                <p class="vert"> Часы</p>
+                            </td>
+                            <td class="mw-50">
+                                <p class="vert">Гуппы</p>
+                            </td>
+                            <td class="mw-50">
+                                <p class="vert">Под_группы</p>
+                            </td>
+                            <td class="mw-50">
+                                <p class="vert">Фор.контр.</p>
+                            </td>
+                            <td class="mw-50">
+                                <p class="vert">Слушатели</p>
+                            </td>
+                            <td class="mw-50">
+                                <p class="vert"> Всего_часов</p>
+                            </td>
+                            <td class="mw-100">
+
+                                <p class="vert">Статус</p>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
                 @foreach (TableModel table in Model.table)
                 {
 
@@ -213,36 +397,35 @@
                             var row = table.Row[@i];
 
 
-                            <div class="shadow" id="el-@a" draggable="true" =SaveOnChange(ID, Type)>
+                            <div class="shadow" id="el-@a" draggable="true" onchange=SaveOnChange(ID, Type)>
 
 
                                 <table class="table table-hover  table-sm table-bordered shadow" style="table-layout: fixed">
 
                                     <tr>
-                                        <td width="100">
-                                            <input type="text" onchange="SaveOnChange(@row.ID,1, this.value)" value='@row.NameTypeTrainingLoad'>
+                                        <td class="">
+                                            <input class="col-12" type="text" onchange="SaveOnChange(@row.ID,1, this.value)" asp-for="@row.NameTypeTrainingLoad" value='@row.NameTypeTrainingLoad'>
                                         </td>
-                                        <td width="20">
-                                            <input type="text" onchange="SaveOnChange(@row.ID,2, this.value)" value='@row.NumberHours'>
+                                        <td class="mw-50">
+                                            <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,2, this.value)" value='@row.NumberHours'>
                                         </td>
-                                        <td width="20">
-                                            <input type="text" onchange="SaveOnChange(@row.ID,3, this.value)" value='@row.NumberGroups'>
+                                        <td class="mw-50">
+                                            <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,3, this.value)" value='@row.NumberGroups'>
                                         </td>
-                                        <td width="20">
-                                            <input type="text" onchange="SaveOnChange(@row.ID,4, this.value)" value='@row.NumberSubgroups'>
+                                        <td class="mw-50">
+                                            <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,4, this.value)" value='@row.NumberSubgroups'>
                                         </td>
-                                        <td width="20">
-                                            <input type="text" onchange="SaveOnChange(@row.ID,5, this.value)" value='@row.NumberControlForms'>
+                                        <td class="mw-50">
+                                            <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,5, this.value)" value='@row.NumberControlForms'>
                                         </td>
-                                        <td width="20">
-                                            <input type="text" onchange="SaveOnChange(@row.ID,6, this.value)" value='@row.NumberListeners'>
+                                        <td class="mw-50">
+                                            <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,6, this.value)" value='@row.NumberListeners'>
                                         </td>
-                                        <td width="20">
-                                            <input type="text" onchange="SaveOnChange(@row.ID,7, this.value)" value='@row.VolumeHours'>
+                                        <td class="mw-50">
+                                            <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,7, this.value)" value='@row.VolumeHours'>
                                         </td>
-                                        <td width="40">
-
-                                            @row.Status
+                                        <td class="mw-100">
+                                            <input type="text" class="mw-100" disabled value='@row.Status'>
                                         </td>
                                     </tr>
                                 </table>
@@ -267,38 +450,38 @@
 </form>
 <script>
 
-  function SaveOnChange(ID, Type,Value) {
+    function SaveOnChange(ID, Type, Value) {
 
 
-      jQuery.ajax({
-          url: '/CheckUTPExcel/SaveOnChange/',
-          type: "POST",
-          dataType: "json",
-          data: { ID,Type,Value },
-          success: function (answer) {
-              conole.log(answer);
+        jQuery.ajax({
+            url: '/CheckUTPExcel/SaveOnChange/',
+            type: "POST",
+            dataType: "json",
+            data: { ID, Type, Value },
+            success: function (answer) {
+                conole.log(answer);
 
-          }
-      });
-  }
-  </script>
+            }
+        });
+    }
+</script>
 
 <style>
-  .elem {
-    width: 600px;
-    height: 250px;
-    margin: 10px auto;
-    text-align: center;
-    /*line-height: 250px;*/
-  }
+    .elem {
+        width: 600px;
+        height: 250px;
+        margin: 10px auto;
+        text-align: center;
+        /*line-height: 250px;*/
+    }
 
-  .area {
-    /* width: 600px;*/
-    height: 350px;
-    /*border: 10px solid plum;*/
-    margin: 20px auto;
-    padding: 10px;
-  }
+    .area {
+        /* width: 600px;*/
+        height: 350px;
+        /*border: 10px solid plum;*/
+        margin: 20px auto;
+        padding: 10px;
+    }
 </style>
 
 
@@ -310,58 +493,58 @@
 <script>
 
 
-  let area1 = document.querySelector("#ar1");
-  let area2 = document.querySelector("#ar2");
-  let area3 = document.querySelector("#ar3");
-  let areaSt = document.querySelector("#ar0");
-  var q;
+    let area1 = document.querySelector("#ar1");
+    let area2 = document.querySelector("#ar2");
+    let area3 = document.querySelector("#ar3");
+    let areaSt = document.querySelector("#ar0");
+    var q;
 
-  for (i = 0; i < 12; i++) {
-    let elem1 = document.querySelector("#el-" + i + "");
-    elem1.addEventListener('dragstart', function () {
+    for (i = 0; i < 12; i++) {
+        let elem1 = document.querySelector("#el-" + i + "");
+        elem1.addEventListener('dragstart', function () {
 
-      q = elem1;
+            q = elem1;
+
+        });
+    }
+
+
+    area1.addEventListener("dragover", function () {
+        event.preventDefault();
 
     });
-  }
-
-
-  area1.addEventListener("dragover", function () {
-    event.preventDefault();
-
-  });
-  area2.addEventListener("dragover", function () {
-    event.preventDefault();
+    area2.addEventListener("dragover", function () {
+        event.preventDefault();
 
 
 
-  });
-  area3.addEventListener("dragover", function () {
-    event.preventDefault();
+    });
+    area3.addEventListener("dragover", function () {
+        event.preventDefault();
 
 
-  });
+    });
 
-  areaSt.addEventListener("dragover", function () {
-    event.preventDefault();
+    areaSt.addEventListener("dragover", function () {
+        event.preventDefault();
 
-  });
-  area1.addEventListener("drop", function (event) {
-    this.appendChild(q);
-  });
+    });
+    area1.addEventListener("drop", function (event) {
+        this.appendChild(q);
+    });
 
-  area2.addEventListener("drop", function (event) {
-    this.appendChild(q);
-  });
-  area3.addEventListener("drop", function (event) {
-    alert(q.id);
-    this.appendChild(q);
+    area2.addEventListener("drop", function (event) {
+        this.appendChild(q);
+    });
+    area3.addEventListener("drop", function (event) {
+        alert(q.id);
+        this.appendChild(q);
 
-  });
+    });
 
-  areaSt.addEventListener("drop", function (event) {
-    this.appendChild(q);
-  });
+    areaSt.addEventListener("drop", function (event) {
+        this.appendChild(q);
+    });
 
 
 </script>
