@@ -39,7 +39,7 @@ namespace CheckingUTP.Controllers
             }
            // _context.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("CheckExcel","CheckUTPExcel");
         }
     }
 }
