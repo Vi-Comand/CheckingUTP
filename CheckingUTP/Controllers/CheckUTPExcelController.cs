@@ -30,26 +30,26 @@ namespace CheckingUTP.Controllers
         public IActionResult SaveOnChange(int ID, int Type, float Value)
         {
             Type_trainig_load type_Training_Load = new Type_trainig_load();
-            type_Training_Load=db.Type_trainig_load.Find(ID);
-            if(Type==1)
-            type_Training_Load.Voulme_hours_per_listener=Value;
-            if(Type==2)
-            type_Training_Load.Number_groups=Value;
-            if(Type==3)
-            type_Training_Load.Number_subgroups=Value;
-            if(Type==4)
-            type_Training_Load.Number_control_forms=Value;
-            if(Type==5)
-            type_Training_Load.Number_listeners=Value;
-             if(Type==6)
-            type_Training_Load.Voulme_hours=Value;
+            type_Training_Load = db.Type_trainig_load.Find(ID);
+            if (Type == 1)
+                type_Training_Load.Voulme_hours_per_listener = Value;
+            if (Type == 2)
+                type_Training_Load.Number_groups = Value;
+            if (Type == 3)
+                type_Training_Load.Number_subgroups = Value;
+            if (Type == 4)
+                type_Training_Load.Number_control_forms = Value;
+            if (Type == 5)
+                type_Training_Load.Number_listeners = Value;
+            if (Type == 6)
+                type_Training_Load.Voulme_hours = Value;
             db.Type_trainig_load.Update(type_Training_Load);
             db.SaveChanges();
             return Json("Изменения внесены!");
         }
         public IActionResult SaveUTPOnline(Models.ModelsUTP.UTP model)
         {
-            Models.DataBase.UTP uTP =db.UTPs.Find(model.propertyUTP.Utp_id);
+            Models.DataBase.UTP uTP = db.UTPs.Find(model.propertyUTP.Utp_id);
             uTP.Hour = model.propertyUTP.Hour;
             uTP.Kol_groups = model.propertyUTP.Kol_groups;
             uTP.Kol_slushatel_v_group = model.propertyUTP.Kol_slushatel_v_group;
@@ -57,17 +57,17 @@ namespace CheckingUTP.Controllers
             uTP.Rejim_zanyati = model.propertyUTP.Rejim_zanyati;
 
             db.UTPs.Update(uTP);
-            db.Type_trainig_load.RemoveRange(db.Type_trainig_load.Where(x => x.Utp_id == model.propertyUTP.Utp_id && x.Type==0));
+            db.Type_trainig_load.RemoveRange(db.Type_trainig_load.Where(x => x.Utp_id == model.propertyUTP.Utp_id && x.Type == 0));
             db.SaveChanges();
-            return RedirectToAction("UTPViews", new { ID= model.propertyUTP.Utp_id });
+            return RedirectToAction("UTPViews", new { ID = model.propertyUTP.Utp_id });
 
         }
 
 
-            public int SaveUTP(Models.ModelsUTP.UTP model)
+        public int SaveUTP(Models.ModelsUTP.UTP model)
         {
 
-            List<Type_trainig_load> all =new List<Type_trainig_load>();
+            List<Type_trainig_load> all = new List<Type_trainig_load>();
             Models.DataBase.UTP uTP = new Models.DataBase.UTP();
             uTP.Hour = model.propertyUTP.Hour;
             uTP.Kol_groups = model.propertyUTP.Kol_groups;
@@ -78,13 +78,13 @@ namespace CheckingUTP.Controllers
 
             db.SaveChanges();
 
-            foreach ( var rows in model.table)
+            foreach (var rows in model.table)
                 foreach (var row in rows.Row)
-                    all.Add(new Type_trainig_load {Name=row.NameTypeTrainingLoad,Voulme_hours_per_listener=row.VoulmeHoursPerListener,Number_control_forms=row.NumberControlForms,Number_groups=row.NumberGroups,Number_listeners=row.NumberListeners,Number_subgroups=row.NumberSubgroups,Type=row.Type,Utp_id= uTP.Utp_id });
+                    all.Add(new Type_trainig_load { Name = row.NameTypeTrainingLoad, Voulme_hours_per_listener = row.VoulmeHoursPerListener, Number_control_forms = row.NumberControlForms, Number_groups = row.NumberGroups, Number_listeners = row.NumberListeners, Number_subgroups = row.NumberSubgroups, Type = row.Type, Utp_id = uTP.Utp_id });
 
             db.Type_trainig_load.AddRange(all);
 
-           db.SaveChanges();
+            db.SaveChanges();
             return uTP.Utp_id;
         }
 
@@ -120,11 +120,11 @@ namespace CheckingUTP.Controllers
 
             WorkPropertyUTP workProperty = new WorkPropertyUTP();
             uTP.propertyUTP = workProperty.GetPropertyUTP(propUTP);
-            uTP.table=listTable;
+            uTP.table = listTable;
             if (listTable.Count != 0)
             {
                 var model = uTP.table;
-                int ID=SaveUTP(uTP);
+                int ID = SaveUTP(uTP);
                 return RedirectToAction("UTPViews", new { ID });
 
             }
@@ -171,10 +171,10 @@ namespace CheckingUTP.Controllers
 
         public class ModelVrem
         {
-          public  string str1 { get; set; }
+            public string str1 { get; set; }
             public string str2 { get; set; }
         }
-public TableModel InfoTable(ExcelWorksheet sheet, int colRow)
+        public TableModel InfoTable(ExcelWorksheet sheet, int colRow)
         {
 
 
@@ -199,7 +199,7 @@ public TableModel InfoTable(ExcelWorksheet sheet, int colRow)
                 {
                     propUTP.Add(new ModelVrem { str1 = sheet.Cells[i, 1].Text, str2 = sheet.Cells[i, 2].Text });
                 }
-                if (sheet.Cells[i, 1].Text == "Вид учебной работы")
+                if (sheet.Cells[i, 1].Text == "Вид учебной работы" || sheet.Cells[i, 1].Text == "Вид учебной нагрузки")
                 {
                     endTable = i;
                     startTableBool = false;
@@ -210,7 +210,7 @@ public TableModel InfoTable(ExcelWorksheet sheet, int colRow)
 
 
 
-                    if (startTableBool == true)
+                if (startTableBool == true)
                 {
 
 
@@ -267,7 +267,7 @@ public TableModel InfoTable(ExcelWorksheet sheet, int colRow)
             return Table;
         }
 
-       
+
         public int TypeTrainingLoad(string NameTypeTrainingLoad)
         {
             List<string> Auditor = new List<string>() {"лекции",
