@@ -1,13 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CheckingUTP.Controllers.Classes.CheckUTPExcelController;
+using CheckingUTP.Models.DataBase;
+using CheckingUTP.Models.ModelsUTP;
+using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-using CheckingUTP.Models.ModelsUTP;
-using CheckingUTP.Controllers.Classes.CheckUTPExcelController;
-using CheckingUTP.Models.DataBase;
 
 namespace CheckingUTP.Controllers
 {
@@ -27,22 +25,24 @@ namespace CheckingUTP.Controllers
         }
 
 
-        public IActionResult SaveOnChange(int ID, int Type, float Value)
+        public IActionResult SaveOnChange(int ID, int Type, string Value)
         {
             Type_trainig_load type_Training_Load = new Type_trainig_load();
             type_Training_Load = db.Type_trainig_load.Find(ID);
             if (Type == 1)
-                type_Training_Load.Voulme_hours_per_listener = Value;
+                type_Training_Load.Name = Value;
             if (Type == 2)
-                type_Training_Load.Number_groups = Value;
+                type_Training_Load.Voulme_hours_per_listener = float.Parse(Value);
             if (Type == 3)
-                type_Training_Load.Number_subgroups = Value;
+                type_Training_Load.Number_groups = float.Parse(Value);
             if (Type == 4)
-                type_Training_Load.Number_control_forms = Value;
+                type_Training_Load.Number_subgroups = float.Parse(Value);
             if (Type == 5)
-                type_Training_Load.Number_listeners = Value;
+                type_Training_Load.Number_control_forms = float.Parse(Value);
             if (Type == 6)
-                type_Training_Load.Voulme_hours = Value;
+                type_Training_Load.Number_listeners = float.Parse(Value);
+            if (Type == 7)
+                type_Training_Load.Voulme_hours = float.Parse(Value);
             db.Type_trainig_load.Update(type_Training_Load);
             db.SaveChanges();
             return Json("Изменения внесены!");
@@ -80,7 +80,7 @@ namespace CheckingUTP.Controllers
 
             foreach (var rows in model.table)
                 foreach (var row in rows.Row)
-                    all.Add(new Type_trainig_load { Name = row.NameTypeTrainingLoad, Voulme_hours_per_listener = row.VoulmeHoursPerListener, Number_control_forms = row.NumberControlForms, Number_groups = row.NumberGroups, Number_listeners = row.NumberListeners, Number_subgroups = row.NumberSubgroups, Type = row.Type, Utp_id = uTP.Utp_id });
+                    all.Add(new Type_trainig_load { Name = row.NameTypeTrainingLoad, Voulme_hours_per_listener = row.VoulmeHoursPerListener, Number_control_forms = row.NumberControlForms, Number_groups = row.NumberGroups, Number_listeners = row.NumberListeners, Number_subgroups = row.NumberSubgroups, Type = row.Type, Utp_id = uTP.Utp_id, Voulme_hours = row.VolumeHours });
 
             db.Type_trainig_load.AddRange(all);
 
@@ -141,7 +141,7 @@ namespace CheckingUTP.Controllers
 
 
             TableModel tableModel = new TableModel();
-            tableModel.Row.AddRange(db.Type_trainig_load.Where(x => x.Utp_id == ID).Select(x => new RowTableModel { ID = x.Type_trainig_load_id, VoulmeHoursPerListener = x.Voulme_hours_per_listener, NameTypeTrainingLoad = x.Name, NumberControlForms = x.Number_control_forms, NumberGroups = x.Number_groups, NumberHours = x.Voulme_hours, NumberListeners = x.Number_listeners, NumberSubgroups = x.Number_subgroups, Type = x.Type, Status = x.Status, VolumeHours = x.Voulme_hours }));
+            tableModel.Row.AddRange(db.Type_trainig_load.Where(x => x.Utp_id == ID).Select(x => new RowTableModel { ID = x.Type_trainig_load_id, VoulmeHoursPerListener = x.Voulme_hours_per_listener, NameTypeTrainingLoad = x.Name, NumberControlForms = x.Number_control_forms, NumberGroups = x.Number_groups, NumberListeners = x.Number_listeners, NumberSubgroups = x.Number_subgroups, Type = x.Type, Status = x.Status, VolumeHours = x.Voulme_hours }));
 
 
 
@@ -222,15 +222,17 @@ namespace CheckingUTP.Controllers
 
                     RowTableModel NewRow = new RowTableModel();
                     NewRow.NameTypeTrainingLoad = sheet.Cells[i, 1].Text;
-
-                    NewRow.NumberControlForms = float.Parse(sheet.Cells[i, 5].Text != "" ? sheet.Cells[i, 5].Text : "0");
+                    NewRow.VoulmeHoursPerListener = float.Parse(sheet.Cells[i, 2].Text != "" ? sheet.Cells[i, 2].Text : "0");
                     NewRow.NumberGroups = float.Parse(sheet.Cells[i, 3].Text != "" ? sheet.Cells[i, 3].Text : "0");
-                    NewRow.NumberHours = float.Parse(sheet.Cells[i, 2].Text != "" ? sheet.Cells[i, 2].Text : "0");
-                    NewRow.NumberListeners = float.Parse(sheet.Cells[i, 6].Text != "" ? sheet.Cells[i, 6].Text : "0");
                     NewRow.NumberSubgroups = float.Parse(sheet.Cells[i, 4].Text != "" ? sheet.Cells[i, 4].Text : "0");
+                    NewRow.NumberControlForms = float.Parse(sheet.Cells[i, 5].Text != "" ? sheet.Cells[i, 5].Text : "0");
+
+
+                    NewRow.NumberListeners = float.Parse(sheet.Cells[i, 6].Text != "" ? sheet.Cells[i, 6].Text : "0");
+
                     NewRow.VolumeHours = float.Parse(sheet.Cells[i, 7].Text != "" ? sheet.Cells[i, 7].Text : "0");
 
-                    if (NewRow.NumberHours != 0 && NewRow.VolumeHours == 0 && TypeTrainingLoad(NewRow.NameTypeTrainingLoad) != 0)
+                    if (NewRow.VoulmeHoursPerListener != 0 && NewRow.VolumeHours == 0 && TypeTrainingLoad(NewRow.NameTypeTrainingLoad) != 0)
                     {
                         NewRow.Type = 3;
 
@@ -243,7 +245,7 @@ namespace CheckingUTP.Controllers
 
                     if (NewRow.VolumeHours != 0)
                     {
-                        if (((NewRow.NumberHours == 0 ? 1 : NewRow.NumberHours) * (NewRow.NumberGroups == 0 ? 1 : NewRow.NumberGroups) * (NewRow.NumberSubgroups == 0 ? 1 : NewRow.NumberSubgroups) * (NewRow.NumberControlForms == 0 ? 1 : NewRow.NumberControlForms) * (NewRow.NumberListeners == 0 ? 1 : NewRow.NumberListeners)) != NewRow.VolumeHours)
+                        if (((NewRow.VoulmeHoursPerListener == 0 ? 1 : NewRow.VoulmeHoursPerListener) * (NewRow.NumberGroups == 0 ? 1 : NewRow.NumberGroups) * (NewRow.NumberSubgroups == 0 ? 1 : NewRow.NumberSubgroups) * (NewRow.NumberControlForms == 0 ? 1 : NewRow.NumberControlForms) * (NewRow.NumberListeners == 0 ? 1 : NewRow.NumberListeners)) != NewRow.VolumeHours)
                         {
                             NewRow.Status = "неверно";
                         }

@@ -46,7 +46,7 @@
     </div>
 
     <input type="hidden" class="form-control input100" id="var" asp-for=@Model.table />
-    
+
     <input type="submit" class="form-control input100" asp-action="SaveUTPOnline" asp-controller="CheckUTPExcel" />
 
     <div class="row">
@@ -116,7 +116,7 @@
                                         <input class="col-12" type="text" onchange="SaveOnChange(@row.ID,1, this.value)" asp-for="@row.NameTypeTrainingLoad" value='@row.NameTypeTrainingLoad'>
                                     </td>
                                     <td class="mw-50">
-                                        <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,2, this.value)" value='@row.NumberHours'>
+                                        <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,2, this.value)" value='@row.VoulmeHoursPerListener'>
                                     </td>
                                     <td class="mw-50">
                                         <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,3, this.value)" value='@row.NumberGroups'>
@@ -216,7 +216,7 @@
                                                 <input class="col-12" type="text" onchange="SaveOnChange(@row.ID,1, this.value)" asp-for="@row.NameTypeTrainingLoad" value='@row.NameTypeTrainingLoad'>
                                             </td>
                                             <td class="mw-50">
-                                                <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,2, this.value)" value='@row.NumberHours'>
+                                                <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,2, this.value)" value='@row.VoulmeHoursPerListener'>
                                             </td>
                                             <td class="mw-50">
                                                 <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,3, this.value)" value='@row.NumberGroups'>
@@ -309,7 +309,7 @@
                                             <input class="col-12" type="text" onchange="SaveOnChange(@row.ID,1, this.value)" asp-for="@row.NameTypeTrainingLoad" value='@row.NameTypeTrainingLoad'>
                                         </td>
                                         <td class="mw-50">
-                                            <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,2, this.value)" value='@row.NumberHours'>
+                                            <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,2, this.value)" value='@row.VoulmeHoursPerListener'>
                                         </td>
                                         <td class="mw-50">
                                             <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,3, this.value)" value='@row.NumberGroups'>
@@ -401,7 +401,7 @@
                                             <input class="col-12" type="text" onchange="SaveOnChange(@row.ID,1, this.value)" asp-for="@row.NameTypeTrainingLoad" value='@row.NameTypeTrainingLoad'>
                                         </td>
                                         <td class="mw-50">
-                                            <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,2, this.value)" value='@row.NumberHours'>
+                                            <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,2, this.value)" value='@row.VoulmeHoursPerListener'>
                                         </td>
                                         <td class="mw-50">
                                             <input type="text" class="mw-46" onchange="SaveOnChange(@row.ID,3, this.value)" value='@row.NumberGroups'>

@@ -25,7 +25,7 @@ namespace CheckingUTP.Models.ModelsUTP
         public int ID { get; set; }
         public string NameTypeTrainingLoad { get; set; }
         public float VoulmeHoursPerListener { get; set; }
-        public float NumberHours { get; set; }
+        /*public float NumberHours { get; set; }*/
         public float NumberGroups { get; set; }
         public float NumberSubgroups { get; set; }
         public float NumberControlForms { get; set; }

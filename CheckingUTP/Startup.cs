@@ -29,11 +29,11 @@ namespace CheckingUTP
             services.AddControllersWithViews();
 
             var connectionString = "server=localhost;user=root;password=123456;database=ef"; // Replace with your server version and type.
-                                                                                           // Use 'MariaDbServerVersion' for MariaDB.
-                                                                                           // Alternatively, use 'ServerVersion.AutoDetect(connectionString)'.
-                                                                                           // For common usages, see pull request #1233.
+                                                                                             // Use 'MariaDbServerVersion' for MariaDB.
+                                                                                             // Alternatively, use 'ServerVersion.AutoDetect(connectionString)'.
+                                                                                             // For common usages, see pull request #1233.
             var serverVersion = new MySqlServerVersion(new Version(8, 0, 25)); // Replace 'YourDbContext' with the name of your own DbContext derived class.
-            services.AddDbContext<Context> (dbContextOptions => dbContextOptions.UseMySql(connectionString, serverVersion).EnableSensitiveDataLogging()); // <-- These two calls are optional but help .EnableDetailedErrors() //   );
+            services.AddDbContext<Context>(dbContextOptions => dbContextOptions.UseMySql(connectionString, serverVersion).EnableSensitiveDataLogging()); // <-- These two calls are optional but help .EnableDetailedErrors() //   );
 
 
 
@@ -65,7 +65,7 @@ namespace CheckingUTP
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=UploadFile}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

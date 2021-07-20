@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 using CheckingUTP.Models;
 
+using CheckingUTP.Models.ModelsUTP;
+using CheckingUTP.Models.DataBase;
+
 namespace CheckingUTP.Controllers
 {
     public class UploadFileController : Controller
@@ -19,9 +22,19 @@ namespace CheckingUTP.Controllers
         //    _context = context;
 
         //}
-        public IActionResult Index()
+
+        Context db;
+        public UploadFileController(Context context)
         {
-            return View("UploadFile");
+            db = context;
+        }
+
+
+        public IActionResult UploadFile()
+        {
+            List<ListUTP> UTP = db.UTPs.Select(x => new ListUTP { Name = x.Name, Hour = x.Hour, Utp_id = x.Utp_id }).ToList();
+
+            return View("UploadFile", UTP);
         }
         public async Task<IActionResult> AddFile(IFormFileCollection uploads)
         {
@@ -35,11 +48,11 @@ namespace CheckingUTP.Controllers
                     await uploadedFile.CopyToAsync(fileStream);
                 }
                 FileModel file = new FileModel { Name = uploadedFile.FileName, Path = path };
-             //   _context.Files.Add(file);
+                //   _context.Files.Add(file);
             }
-           // _context.SaveChanges();
+            // _context.SaveChanges();
 
-            return RedirectToAction("CheckExcel","CheckUTPExcel");
+            return RedirectToAction("CheckExcel", "CheckUTPExcel");
         }
     }
 }
